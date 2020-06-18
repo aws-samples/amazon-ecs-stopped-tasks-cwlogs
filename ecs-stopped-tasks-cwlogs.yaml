@@ -1,0 +1,59 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Deploys the resources needed to store Amazon ECS stopped tasks in CloudWatch Logs
+Resources:
+  EventRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: ECSStoppedTasksEvent
+      Description: Triggered when an Amazon ECS Task is stopped
+      EventPattern:
+        source:
+          - aws.ecs
+        detail-type:
+          - ECS Task State Change
+        detail:
+          desiredStatus:
+            - STOPPED
+          lastStatus:
+            - STOPPED
+      State: ENABLED
+      Targets:
+        - Arn: !GetAtt LambdaFunction.Arn
+          Id: ECSStoppedTasksLambda
+
+  PermissionForEventsToInvokeLambda:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref LambdaFunction
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+      SourceArn: !GetAtt EventRule.Arn
+
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - !Sub "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+
+  LambdaFunction:
+      Type: AWS::Lambda::Function
+      Properties:
+        FunctionName: ECSStoppedTasksLambda
+        Description: The function sends to the standard output the input event
+        Handler: index.handler
+        Role: !GetAtt LambdaExecutionRole.Arn
+        Runtime: python3.7
+        Code:
+          ZipFile: |
+            import json
+
+            def handler(event, context):
+
+              print(json.dumps(event))

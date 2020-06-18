@@ -1,0 +1,78 @@
+{
+    "version": "0",
+    "id": "d005c784-98bd-b9c9-043f-c924cd120f54",
+    "detail-type": "ECS Task State Change",
+    "source": "aws.ecs",
+    "account": "0123456789",
+    "time": "2020-06-05T12:17:11Z",
+    "region": "eu-west-1",
+    "resources": [
+        "arn:aws:ecs:eu-west-1:0123456789:task/Features/33a7f27282624543abd4a00c3e84d0ee"
+    ],
+    "detail": {
+        "attachments": [
+            {
+                "id": "f552fb81-5170-4191-ae84-c1921505ef1c",
+                "type": "sdi",
+                "status": "DELETED",
+                "details": []
+            }
+        ],
+        "availabilityZone": "eu-west-1a",
+        "capacityProviderName": "FeaturesASG",
+        "clusterArn": "arn:aws:ecs:eu-west-1:0123456789:cluster/Features",
+        "containerInstanceArn": "arn:aws:ecs:eu-west-1:0123456789:container-instance/Features/0c304770a74540689f5bf39622b3d781",
+        "containers": [
+            {
+                "containerArn": "arn:aws:ecs:eu-west-1:0123456789:container/0a97d723-d9c4-45d7-8109-471e94afa4af",
+                "exitCode": 0,
+                "lastStatus": "STOPPED",
+                "name": "Webapp",
+                "image": "0123456789.dkr.ecr.eu-west-1.amazonaws.com/webapp:d1a3f22",
+                "imageDigest": "sha256:48b2652a7a9a104300046dc3be4aba5e3e19a2ead82a593f63846739a7429230",
+                "runtimeId": "8a78a445b4e66ee0f2c7624d9b52af4e3685039444a44999d884e1af2283e804",
+                "networkBindings": [
+                    {
+                        "bindIP": "0.0.0.0",
+                        "containerPort": 80,
+                        "hostPort": 32771,
+                        "protocol": "tcp"
+                    }
+                ],
+                "taskArn": "arn:aws:ecs:eu-west-1:0123456789:task/Features/33a7f27282624543abd4a00c3e84d0ee",
+                "networkInterfaces": [],
+                "cpu": "0",
+                "memoryReservation": "128"
+            }
+        ],
+        "createdAt": "2020-06-02T09:15:42.131Z",
+        "launchType": "EC2",
+        "cpu": "0",
+        "memory": "128",
+        "desiredStatus": "STOPPED",
+        "group": "service:Webapp",
+        "lastStatus": "STOPPED",
+        "overrides": {
+            "containerOverrides": [
+                {
+                    "name": "Webapp"
+                }
+            ]
+        },
+        "connectivity": "CONNECTED",
+        "connectivityAt": "2020-06-02T09:15:42.131Z",
+        "pullStartedAt": "2020-06-02T09:15:42.626Z",
+        "startedAt": "2020-06-02T09:16:17.544Z",
+        "startedBy": "ecs-svc/5888882704497679006",
+        "stoppingAt": "2020-06-05T12:16:57.199Z",
+        "stoppedAt": "2020-06-05T12:17:11.696Z",
+        "pullStoppedAt": "2020-06-02T09:15:43.626Z",
+        "executionStoppedAt": "2020-06-05T12:17:10Z",
+        "stoppedReason": "Task stopped by user",
+        "stopCode": "UserInitiated",
+        "updatedAt": "2020-06-05T12:17:11.696Z",
+        "taskArn": "arn:aws:ecs:eu-west-1:0123456789:task/Features/33a7f27282624543abd4a00c3e84d0ee",
+        "taskDefinitionArn": "arn:aws:ecs:eu-west-1:0123456789:task-definition/webapp:15",
+        "version": 7
+    }
+}
