@@ -18,42 +18,9 @@ Resources:
             - STOPPED
       State: ENABLED
       Targets:
-        - Arn: !GetAtt LambdaFunction.Arn
-          Id: ECSStoppedTasksLambda
-
-  PermissionForEventsToInvokeLambda:
-    Type: AWS::Lambda::Permission
+        - Arn: !GetAtt LogGroup.Arn
+          Id: ECSStoppedTasks
+  LogGroup:
+    Type: AWS::Logs::LogGroup
     Properties:
-      FunctionName: !Ref LambdaFunction
-      Action: lambda:InvokeFunction
-      Principal: events.amazonaws.com
-      SourceArn: !GetAtt EventRule.Arn
-
-  LambdaExecutionRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: 2012-10-17
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service: lambda.amazonaws.com
-            Action: sts:AssumeRole
-      ManagedPolicyArns:
-        - !Sub "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-
-  LambdaFunction:
-      Type: AWS::Lambda::Function
-      Properties:
-        FunctionName: ECSStoppedTasksLambda
-        Description: The function sends to the standard output the input event
-        Handler: index.handler
-        Role: !GetAtt LambdaExecutionRole.Arn
-        Runtime: python3.7
-        Code:
-          ZipFile: |
-            import json
-
-            def handler(event, context):
-
-              print(json.dumps(event))
+      LogGroupName: /aws/events/ECSStoppedTasksEvent

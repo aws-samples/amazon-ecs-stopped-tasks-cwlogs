@@ -49,10 +49,6 @@ The following CloudWatch event pattern will match only the events when a task is
 }
 ```
 
-#### AWS Lambda Function
-
-The Lambda function is triggered every time a task is stopped and it sends to the standard output the input event.
-
 #### Amazon CloudWatch Logs
 
 An example of the event stored in Amazon CloudWatch Logs can be found [here](cw-event.json).
