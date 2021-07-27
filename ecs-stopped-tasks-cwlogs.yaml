@@ -1,5 +1,16 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: Deploys the resources needed to store Amazon ECS stopped tasks in CloudWatch Logs
+Description: Deploys the resources needed to store events of Amazon ECS stopped tasks in CloudWatch Logs
+
+Parameters:
+  CWLogGroupName:
+    Type: String
+    Description: The CloudWatch log group name to store the events
+    Default: /aws/events/ECSStoppedTasksEvent
+  CWLogGroupRetention:
+    Type: Number
+    Description: The number of days to retain the events in the log group
+    Default: 30
+
 Resources:
   EventRule:
     Type: AWS::Events::Rule
@@ -20,7 +31,9 @@ Resources:
       Targets:
         - Arn: !GetAtt LogGroup.Arn
           Id: ECSStoppedTasks
+
   LogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
-      LogGroupName: /aws/events/ECSStoppedTasksEvent
+      LogGroupName: !Ref CWLogGroupName
+      RetentionInDays: !Ref CWLogGroupRetention
