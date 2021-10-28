@@ -28,7 +28,7 @@ Amazon ECS sends three types of events to EventBridge: container instance state 
 
 https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_cwe_events.html
 
-The following CloudWatch event pattern will match only the events when a task is stopped.
+The following EventBridge event pattern will match only the events when a task is stopped.
 
 ```
 {
